@@ -2,20 +2,25 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.route.js";
+import authRoutes from "./routes/auth.route.js";
 
 dotenv.config();
 
 const app = express();
 
+app.use(express.json());
+
+//routes
+app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
+
+// connect to db
 mongoose
-  .connect(process.env.MONGO, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO)
   .then(() => {
     console.log("Connected to MongoDB");
-    app.listen(3700, () => {
-      console.log("Server running on port 3700 !");
+    app.listen(3100, () => {
+      console.log("Server running on port 3100 !");
     });
   })
   .catch((err) => console.error("Error connecting to MongoDB:", err));
@@ -27,5 +32,3 @@ app.use((err, req, res, next) => {
     .status(statusCode)
     .json({ success: false, error: message, statusCode });
 });
-
-app.use("/api/user", userRoutes);
