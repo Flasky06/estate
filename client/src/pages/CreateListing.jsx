@@ -3,11 +3,18 @@ import React, { useState } from "react";
 function CreateListing() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
 
-  const nextStep = () => {
+  const nextStep = (e) => {
+    e.preventDefault();
+
     setCurrentStep(currentStep + 1);
   };
-  const prevStep = () => {
+  const prevStep = (e) => {
+    e.preventDefault();
+
     setCurrentStep(currentStep - 1);
   };
 
@@ -15,10 +22,30 @@ function CreateListing() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
     console.log(formData);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Form submitted");
+    try {
+      setLoading(true);
+      const res = await fetch("/api/house/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = res.json();
+
+      if (data.success === false) {
+        setError(true);
+      }
+      setLoading(false);
+      setUpdateSuccess(true);
+      alert("success");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -121,13 +148,12 @@ function CreateListing() {
               </div>
             </div>
             <div className="flex justify-end">
-              <button
-                type="button"
+              <span
                 onClick={nextStep}
                 className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer  "
               >
                 Next step
-              </button>
+              </span>
             </div>
           </div>
         )}
@@ -139,20 +165,20 @@ function CreateListing() {
             </h4>
 
             <div className="flex justify-between my-2">
-              <button
+              <span
                 type="button"
                 onClick={prevStep}
                 className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer flex "
               >
                 prev step
-              </button>
-              <button
+              </span>
+              <span
                 type="button"
                 onClick={nextStep}
                 className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer flex "
               >
                 Next step
-              </button>
+              </span>
             </div>
           </div>
         )}
@@ -194,20 +220,20 @@ function CreateListing() {
               />
             </div>
             <div className="flex justify-between my-2">
-              <button
+              <span
                 type="button"
                 onClick={prevStep}
                 className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer flex "
               >
                 prev step
-              </button>
-              <button
+              </span>
+              <span
                 type="button"
                 onClick={nextStep}
                 className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer flex "
               >
                 Next step
-              </button>
+              </span>
             </div>
           </div>
         )}
@@ -321,18 +347,18 @@ function CreateListing() {
             </div>
 
             <div className="flex justify-between my-2">
-              <button
+              <span
                 type="button"
                 onClick={prevStep}
                 className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer flex "
               >
                 prev step
-              </button>
+              </span>
               <button
-                type="submit"
-                className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer flex "
+                disabled={loading}
+                className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer disabled:bg-green-600 "
               >
-                Submit
+                {loading ? "submiting listing" : "Submit"}
               </button>
             </div>
           </div>

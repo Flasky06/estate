@@ -4,19 +4,17 @@ const listingSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
-      unique: true,
     },
-    category: { type: String, required: true }, //villa ,apartment, house , bungallow,studio
-    city: { type: String, required: true },
-    area: { type: String, required: true },
-    type: { type: String, required: true }, //sale or rent
-    price: { type: Number, required: true },
-    bathrooms: { type: Number, required: true },
-    bedrooms: { type: Number, required: true },
-    rooms: { type: Number, required: true },
-    description: { type: String, required: true },
-    garage: { type: String, required: true },
+    category: { type: String }, //villa ,apartment, house , bungallow,studio
+    city: { type: String },
+    area: { type: String },
+    type: { type: String }, //sale or rent
+    price: { type: Number },
+    bathrooms: { type: Number },
+    bedrooms: { type: Number },
+    rooms: { type: Number },
+    description: { type: String },
+    extraDetails: { type: String },
   },
   { timestamps: true }
 );
