@@ -6,8 +6,8 @@ function Header() {
   const { currentUser } = useSelector((state) => state.user);
 
   return (
-    <div className="bg-slate-200 font-bold">
-      <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
+    <nav className="max-w-md:hidden  w-full py-4 bg-white fixed z-20 top-0 shadow">
+      <div className="flex justify-between items-center max-w-7xl mx-auto p-3">
         <Link to="/">
           <h1>Auth App</h1>
         </Link>
@@ -16,7 +16,7 @@ function Header() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/about">Properties</Link>
           </li>
           <li>
             <Link to="/profile">
@@ -31,9 +31,12 @@ function Header() {
               )}
             </Link>
           </li>
+          <button className=" bg-blue-500 text-white py-2 px-3 text-sm font-bold rounded">
+            <Link to="/create-listing"> Add Listing</Link>
+          </button>
         </ul>
       </div>
-    </div>
+    </nav>
   );
 }
 

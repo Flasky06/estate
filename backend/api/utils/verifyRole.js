@@ -1,7 +1,7 @@
-// utils/checkRole.js
+utils / checkRole.js;
 import { errorHandler } from "./error.js";
 
-export const veryfyRole = (allowedRoles) => {
+export const verifyRole = (allowedRoles) => {
   return (req, res, next) => {
     const userRole = req.user.role;
     if (!allowedRoles.includes(userRole)) {
