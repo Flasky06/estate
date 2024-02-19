@@ -1,14 +1,8 @@
 import User from "../models/user.model.js";
 import { errorHandler } from "../utils/error.js";
 
-export const test = (req, res) => {
-  res.json({
-    message: "API is working !",
-  });
-};
-
 // update user
-export const updateUser = async (req, res, next) => {
+export const UpdateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id) {
     return next(errorHandler(401, "You can update only your account!"));
   }
@@ -35,7 +29,8 @@ export const updateUser = async (req, res, next) => {
     next(error);
   }
 };
-export const deleteUser = async (req, res, next) => {
+
+export const DeleteUser = async (req, res, next) => {
   if (req.user.id !== req.params.id) {
     return next(errorHandler(401, "You can only delete  your account!"));
   }
@@ -50,6 +45,6 @@ export const deleteUser = async (req, res, next) => {
 };
 
 // signout
-export const signout = (req, res, next) => {
+export const Signout = (req, res, next) => {
   res.clearCookie("access_token".status(200).json("Signout success"));
 };
