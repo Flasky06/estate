@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { type } from "os";
 
 const listingSchema = new mongoose.Schema(
   {
@@ -15,6 +16,7 @@ const listingSchema = new mongoose.Schema(
     rooms: { type: Number },
     description: { type: String },
     extraDetails: { type: String },
+    downloadURLs: { type: [String] },
   },
   { timestamps: true }
 );

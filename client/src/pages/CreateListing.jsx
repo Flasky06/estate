@@ -1,86 +1,113 @@
-import React, { useEffect, useState } from "react";
-
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
-import { app } from "../firebase";
+import React, { useState } from "react";
+import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
 
 function CreateListing() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
-  const [image, setImage] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
   // firebase image upload
-  useEffect(() => {
-    if (image) {
-      handleFileUpload(image);
+  const [images, setImages] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const [thumbnails, setThumbnails] = useState([]);
+  const [downloadURLs, setDownloadURLs] = useState([]);
+
+  // Define a function to upload the file and get its download URL
+  const uploadFileAndGetDownloadURL = async (file) => {
+    setUploading(true);
+
+    const storage = getStorage();
+    const imageRef = ref(storage, `/multipleFiles/${file.name}`);
+
+    try {
+      // Upload the file
+      await uploadBytes(imageRef, file);
+
+      // Get the download URL of the uploaded file
+      const downloadURL = await getDownloadURL(imageRef);
+
+      console.log(`Successfully uploaded ${file.name}`);
+      console.log(`Download URL: ${downloadURL}`);
+      alert(`${file.name} uploaded successfully!`);
+
+      return downloadURL;
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      alert(
+        `An error occurred while uploading ${file.name}. Please try again.`
+      );
+    } finally {
+      setUploading(false);
     }
-  }, [image]);
-  const handleFileUpload = async (image) => {
-    const storage = getStorage(app);
-    const fileName = new Date().getTime() + image.name;
-    const storageRef = ref(storage, fileName);
-    const uploadTask = uploadBytesResumable(storageRef, image);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setImagePercent(Math.round(progress));
-      },
-      (error) => {
-        setImageError(true);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
-          setFormData({ ...formData, profilePicture: downloadURL })
-        );
+  };
+
+  // thumbnails
+  const handleImageChange = (event) => {
+    const files = event.target.files;
+    const newImages = Array.from(files);
+
+    setImages([...images, ...newImages]);
+
+    const newThumbnails = newImages.map((image) => URL.createObjectURL(image));
+    setThumbnails([...thumbnails, ...newThumbnails]);
+  };
+
+  // Modify handleUpload function to handle getting download URLs
+  const handleUpload = async () => {
+    const urls = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const downloadURL = await uploadFileAndGetDownloadURL(images[i]);
+      if (downloadURL) {
+        urls.push(downloadURL);
       }
-    );
+    }
+
+    // Store the download URLs in state
+    setDownloadURLs(urls);
   };
 
   const nextStep = (e) => {
     e.preventDefault();
-
     setCurrentStep(currentStep + 1);
   };
+
   const prevStep = (e) => {
     e.preventDefault();
-
     setCurrentStep(currentStep - 1);
   };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
-    console.log(formData);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setLoading(true);
+
+      // Append download URLs to formData
+      const formDataWithUrls = { ...formData, downloadURLs };
+      console.log(formDataWithUrls);
       const res = await fetch("/api/house/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formDataWithUrls),
       });
 
-      const data = res.json();
+      const data = await res.json();
 
-      if (data.success === false) {
+      if (!data.success) {
         setError(true);
       }
       setLoading(false);
       setUpdateSuccess(true);
-      alert("success");
+      alert("Success");
     } catch (error) {
       console.log(error);
     }
@@ -88,41 +115,40 @@ function CreateListing() {
 
   return (
     <div className="flex flex-col max-w-4xl mx-auto mt-32 px-2 lg:px-0">
-      <h2 className="flex my-5 capitalize font-bold self-center text-lg">
+      <h2 className="flex mt-3 capitalize font-bold self-center text-lg">
         Post New Listing
       </h2>
       <form className="mt-5" onSubmit={handleSubmit}>
         {currentStep === 1 && (
-          <div className="py-10">
-            <h4 className="text-semibold text-md capitalize mb-5">
-              property description
+          <div className="pt-5">
+            <h4 className="text-lg font-semibold text-blue-700 text-md capitalize mb-5">
+              Property Description
             </h4>
             <div className="flex flex-col">
               <label
-                htmlFor=""
+                htmlFor="title"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                property name
+                Property Name
               </label>
               <input
                 type="text"
                 id="title"
-                placeholder="property name"
+                placeholder="Property Name"
                 className="w-full p-2 border rounded"
                 onChange={handleChange}
               />
             </div>
             <div className="flex flex-col">
               <label
-                htmlFor=""
+                htmlFor="description"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                property description
+                Property Description
               </label>
               <textarea
-                type="text"
                 id="description"
-                placeholder="property description"
+                placeholder="Property Description"
                 className="w-full p-2 border rounded"
                 onChange={handleChange}
               />
@@ -132,12 +158,12 @@ function CreateListing() {
                 htmlFor="price"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                price(ksh)
+                Price (Ksh)
               </label>
               <input
                 type="number"
                 id="price"
-                placeholder="property price"
+                placeholder="Property Price"
                 className="w-full p-2 border rounded"
                 onChange={handleChange}
               />
@@ -151,7 +177,6 @@ function CreateListing() {
                   Property Category
                 </label>
                 <select
-                  name="category"
                   id="category"
                   className="w-full shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   required
@@ -173,8 +198,7 @@ function CreateListing() {
                   Listed For
                 </label>
                 <select
-                  name="listedFor"
-                  id="type"
+                  id="listedFor"
                   className="w-full shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   required
                   onChange={handleChange}
@@ -186,41 +210,59 @@ function CreateListing() {
               </div>
             </div>
             <div className="flex justify-end">
-              <span
+              <button
                 onClick={nextStep}
-                className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer  "
+                className="bg-blue-700 text-white py-1 px-4 rounded font-semibold cursor-pointer"
               >
-                Next step
-              </span>
+                Next Step
+              </button>
             </div>
           </div>
         )}
-
         {currentStep === 2 && (
           <div>
-            <h4 className="text-semibold text-md capitalize mb-5">
-              Media Upload
-            </h4>
-
-            <div className="flex justify-between my-2">
-              <span
-                type="button"
+            <div className="mt-10 ">
+              <div className="flex flex-wrap gap-4">
+                {thumbnails.map((thumbnail, index) => (
+                  <img
+                    key={index}
+                    src={thumbnail}
+                    alt={`Thumbnail ${index}`}
+                    style={{
+                      width: "150px",
+                      height: "150px",
+                      objectFit: "cover",
+                      marginBottom: "40px",
+                      border: "solid",
+                    }}
+                  />
+                ))}
+              </div>
+              <input type="file" onChange={handleImageChange} />
+              <button
+                onClick={handleUpload}
+                disabled={uploading || images.length === 0}
+                className="bg-green-700 text-white py-1 px-4 rounded font-semibold cursor-pointer"
+              >
+                {uploading ? "Uploading..." : "Upload"}
+              </button>
+            </div>
+            <div className="flex  justify-between mt-10 ">
+              <button
                 onClick={prevStep}
-                className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer flex "
+                className="bg-blue-700 text-white py-1 px-4 rounded font-semibold cursor-pointer"
               >
-                prev step
-              </span>
-              <span
-                type="button"
+                Prev Step
+              </button>
+              <button
                 onClick={nextStep}
-                className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer flex "
+                className="bg-blue-700 text-white py-1 px-4 rounded font-semibold cursor-pointer"
               >
-                Next step
-              </span>
+                Next Step
+              </button>
             </div>
           </div>
         )}
-
         {currentStep === 3 && (
           <div className="gap-2">
             <h4 className="text-semibold text-md capitalize mb-5">
@@ -275,7 +317,6 @@ function CreateListing() {
             </div>
           </div>
         )}
-
         {currentStep === 4 && (
           <div>
             <h4 className="text-semibold text-md capitalize mb-5">

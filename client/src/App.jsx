@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
+import ImageUpload from "./pages/ImageUpload";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/upload" element={<ImageUpload />} />
+
         <Route path="/create-listing" element={<CreateListing />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
