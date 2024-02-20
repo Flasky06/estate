@@ -9,11 +9,14 @@ import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
 import ImageUpload from "./pages/ImageUpload";
+import ConditionalyShowNavbar from "./components/ConditionalyShowNavbar";
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
+      <ConditionalyShowNavbar>
+        <Header />
+      </ConditionalyShowNavbar>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
