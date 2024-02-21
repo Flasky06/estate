@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import About from "./pages/About";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Profile from "./pages/Profile";
@@ -12,6 +11,7 @@ import ConditionalyShowNavbar from "./components/ConditionalyShowNavbar";
 import UpdateListing from "./pages/UpdateListing";
 import MyListings from "./pages/MyListings";
 import Home from "./pages/Home/Home";
+import ListingsPage from "./pages/ListingsPage";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
       </ConditionalyShowNavbar>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/listings" element={<ListingsPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/upload" element={<ImageUpload />} />

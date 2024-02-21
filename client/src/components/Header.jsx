@@ -9,7 +9,7 @@ function Header() {
     <nav className="max-w-md:hidden  w-full py-4 bg-white fixed z-20 top-0 shadow">
       <div className="flex justify-between items-center max-w-5xl mx-auto p-3">
         <Link to="/">
-          <h1>Auth App</h1>
+          <h1>Esate App</h1>
         </Link>
         <ul className="flex gap-6">
           <li className="font-semibold hover:text-slate-600 px-2 py-1">
