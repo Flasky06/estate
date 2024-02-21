@@ -17,7 +17,7 @@ const SearchComponent = () => {
       case "Nakuru":
         return (
           <>
-            <option value="">Property Area</option>
+            <option value=""> Desired Location</option>
             <option value="Freehold">Freehold</option>
             <option value="RaceCourse">RaceCourse</option>
             <option value="Zakayos">Zakayos</option>
@@ -26,7 +26,7 @@ const SearchComponent = () => {
       case "Nairobi":
         return (
           <>
-            <option value="">Property Area</option>
+            <option value=""> Desired Location</option>
             <option value="Ngong">Ngong</option>
             <option value="Kitengela">Kitengela</option>
             <option value="cbd">CBD</option>
@@ -35,14 +35,14 @@ const SearchComponent = () => {
       case "Mombasa":
         return (
           <>
-            <option value="">Property Area</option>
+            <option value=""> Desired Location</option>
             <option value="Bombolulu">Bombolulu</option>
             <option value="Nyali">Nyali</option>
             <option value="Mpeketoni">Mpeketoni</option>
           </>
         );
       default:
-        return <option value="">Property Area</option>;
+        return <option value=""> Desired Location</option>;
     }
   };
 
@@ -66,7 +66,7 @@ const SearchComponent = () => {
             value={city}
             onChange={handleCityChange}
           >
-            <option value="">Property City</option>
+            <option value="">Desired City</option>
             <option value="Nakuru">Nakuru</option>
             <option value="Nairobi">Nairobi</option>
             <option value="Mombasa">Mombasa</option>
@@ -78,7 +78,7 @@ const SearchComponent = () => {
             className="block mb-2 text-sm font-bold text-gray-700"
             htmlFor="area"
           >
-            Area
+            Location
           </label>
           <select
             id="area"
@@ -106,7 +106,9 @@ const SearchComponent = () => {
             <option value="below 10,000">Below 10,000 KES</option>
             <option value="below 20,000">Below 20,000 KES</option>
             <option value="below 30,000">Below 30,000 KES</option>
-            {/* Add more options as needed */}
+            <option value="below 40,000">Below 40,000 KES</option>
+            <option value="below 50,000">Below 50,000 KES</option>
+            <option value="below 60,000">Below 60,000 KES</option>
           </select>
         </div>
         <div className="mb-4 md:mr-2 md:mb-0">
@@ -123,16 +125,18 @@ const SearchComponent = () => {
             onChange={(e) => setBedrooms(e.target.value)}
           >
             <option value="">Bedrooms</option>
+            <option value="bedsitter">bedsitter</option>
             <option value="1 bedroom">1 Bedroom</option>
             <option value="2 bedroom">2 Bedrooms</option>
             <option value="3 bedroom">3 Bedrooms</option>
             <option value="4 bedroom">4 Bedrooms</option>
+            <option value="5 bedroom">5 Bedrooms</option>
           </select>
         </div>
       </div>
-      <div className="flex space-x-4 mt-2">
+      <div className="flex space-x-4 mt-2  pt-3">
         <button
-          className="w-full shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-1 text-sm px-6 rounded"
+          className="w-full shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold text-lg py-1  px-6 rounded"
           type="button"
           onClick={handleSearch}
         >

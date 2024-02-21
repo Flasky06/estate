@@ -8,7 +8,11 @@ function ConditionalyShowNavbar({ children }) {
 
   useEffect(() => {
     console.log("this is the location", location);
-    if (location.pathname === "/signup" || location.pathname === "/signin") {
+    if (
+      location.pathname === "/signup" ||
+      location.pathname === "/signin" ||
+      location.pathname === "/property-details"
+    ) {
       setShowNavbar(false);
     } else {
       setShowNavbar(true);

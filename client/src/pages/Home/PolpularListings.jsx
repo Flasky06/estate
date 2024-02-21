@@ -12,30 +12,33 @@ function PopularListings() {
       </h3>
 
       <div className="grid grid-cols-4 gap-4">
-        <div className="card border border-gray-300 shadow rounded-lg overflow-hidden">
-          <img
-            src={apartment}
-            alt="Apartment"
-            className="w-full h-40 object-cover"
-          />
-          <div className="p-4">
-            <p className="text-lg text-blue-600 font-semibold">
-              KES 40,000 <span className="font-light text-sm">/ month</span>
-            </p>
-            <h1 className="font-bold text-xl mb-2">Texas Apartment</h1>
-            <p className="text-sm text-gray-600 mb-2">Freehold, Nakuru</p>
-            <div className="flex gap-3">
-              <div className="flex items-center">
-                <IoBedOutline className="text-gray-500 mr-1" />
-                <span className="text-sm">1 Bed</span>
-              </div>
-              <div className="flex items-center">
-                <FaShower className="text-gray-500 mr-1" />
-                <span className="text-sm">1 Bath</span>
+        <Link to="/property-details">
+          {" "}
+          <div className="card cursor-pointer border border-gray-300 shadow rounded-lg overflow-hidden">
+            <img
+              src={apartment}
+              alt="Apartment"
+              className="w-full h-40 object-cover"
+            />
+            <div className="p-4">
+              <p className="text-lg text-blue-600 font-semibold">
+                KES 40,000 <span className="font-light text-sm">/ month</span>
+              </p>
+              <h1 className="font-bold text-xl mb-2">Texas Apartment</h1>
+              <p className="text-md text-slate-500 mb-2">Freehold, Nakuru</p>
+              <div className="flex gap-3">
+                <div className="flex items-center">
+                  <IoBedOutline className="text-gray-500 mr-1" />
+                  <span className="text-sm">1 Bed</span>
+                </div>
+                <div className="flex items-center">
+                  <FaShower className="text-gray-500 mr-1" />
+                  <span className="text-sm">1 Bath</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
 
       <button className="mt-8 mx-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">

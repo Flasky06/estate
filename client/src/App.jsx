@@ -12,6 +12,7 @@ import UpdateListing from "./pages/UpdateListing";
 import MyListings from "./pages/MyListings";
 import Home from "./pages/Home/Home";
 import ListingsPage from "./pages/ListingsPage";
+import PropertyDetails from "./pages/property-details/PropertyDetails";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
         <Route path="/upload" element={<ImageUpload />} />
         <Route path="/update-listing" element={<UpdateListing />} />
         <Route path="/my-listings" element={<MyListings />} />
-
+        <Route path="/property-details" element={<PropertyDetails />} />
         <Route path="/create-listing" element={<CreateListing />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
