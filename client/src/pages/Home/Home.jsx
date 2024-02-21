@@ -3,6 +3,7 @@ import Hero from "./Hero";
 import FeaturedListings from "./FeaturedListings";
 import PolpularListings from "./PolpularListings";
 import Footer from "../../components/Footer";
+import SearchComponent from "../../components/SearchComponent";
 
 function Home() {
   return (
