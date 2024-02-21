@@ -2,6 +2,7 @@ import express from "express";
 import { verifyToken } from "../utils/verifyUser.js";
 import {
   createListing,
+  fetchAgentsListings,
   fetchAllListings,
   fetchListing,
   updateListing,
@@ -11,7 +12,8 @@ const router = express.Router();
 
 router.post("/create", verifyToken, createListing);
 router.put("/update/:id", verifyToken, updateListing);
+router.get("/all-listings", fetchAllListings);
 router.get("/:id", fetchListing);
-router.get("/listings/all", fetchAllListings);
+router.get("/agent-listings/:id", fetchAgentsListings);
 
 export default router;

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Listing from "../models/listing.model.js";
 import User from "../models/user.model.js";
 import { errorHandler } from "../utils/error.js";
@@ -47,8 +48,7 @@ export const createListing = async (req, res) => {
 
     await newListing.save();
 
-    const listings = await Listing.find();
-    res.status(201).json(listings);
+    res.status(201).json(newListing);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
@@ -77,10 +77,11 @@ export const updateListing = async (req, res, next) => {
     next(error);
   }
 };
-
+// fetch listing by property
 export const fetchListing = async (req, res, next) => {
   try {
-    console.log("id", req.params.id); // Corrected to req.params.id
+    console.log("id", req.params.id);
+
     const listing = await Listing.findById(req.params.id);
     res.status(200).json(listing);
   } catch (error) {
@@ -88,11 +89,36 @@ export const fetchListing = async (req, res, next) => {
   }
 };
 
+// fetch all listed properties
 export const fetchAllListings = async (req, res, next) => {
   try {
     const listings = await Listing.find();
     res.status(200).json(listings);
   } catch (error) {
+    next(error);
+  }
+};
+
+// fetch listings posted by agent id
+export const fetchAgentsListings = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+
+    console.log("userId:", userId);
+
+    const agentListings = await Listing.find({ createdBy: userId });
+
+    console.log("agentListings:", agentListings);
+
+    if (!agentListings) {
+      return res
+        .status(404)
+        .json({ message: "No listings found for this user." });
+    }
+
+    res.status(200).json(agentListings);
+  } catch (error) {
+    console.error("Error:", error);
     next(error);
   }
 };
