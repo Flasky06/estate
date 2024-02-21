@@ -1,12 +1,18 @@
 import mongoose from "mongoose";
-import { type } from "os";
 
-const listingSchema = new mongoose.Schema(
+const { Schema } = mongoose;
+
+const listingSchema = new Schema(
   {
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     title: {
       type: String,
     },
-    category: { type: String }, //villa ,apartment, house , bungallow,studio
+    category: { type: String }, //villa ,apartment, house , bungalow,studio
     city: { type: String },
     area: { type: String },
     type: { type: String }, //sale or rent

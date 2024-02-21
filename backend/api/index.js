@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
-import houseRoutes from "./routes/house.route.js";
+import houseRoutes from "./routes/listing.route.js";
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ app.use(cookieParser());
 //routes
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/house", houseRoutes);
+app.use("/api/listing", houseRoutes);
 
 // middleware
 app.use((err, req, res, next) => {

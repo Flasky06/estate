@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
+import { useSelector } from "react-redux";
 
 function CreateListing() {
+  const { currentUser } = useSelector((state) => state.user);
+
+  console.log("user", currentUser);
+
+  const userId = currentUser._id;
+  console.log("userId", userId);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -90,9 +98,9 @@ function CreateListing() {
       setLoading(true);
 
       // Append download URLs to formData
-      const formDataWithUrls = { ...formData, downloadURLs };
+      const formDataWithUrls = { ...formData, createdBy: userId, downloadURLs };
       console.log(formDataWithUrls);
-      const res = await fetch("/api/house/create", {
+      const res = await fetch("api/listing/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
