@@ -14,11 +14,11 @@ function Footer() {
   return (
     <div className="bg-blue-900 text-white py-16">
       <div className="max-w-7xl mx-auto flex flex-col gap-4 h-48 w-full py-5 justify-center items-center">
-        <h1 className="text-5xl font-bold text-center">
+        <h1 className="text-2xl lg:text-5xl font-bold text-center">
           Are you a landlord or a property agent?
         </h1>
-        <h3>Discover ways to screen and increase tenancy</h3>
-        <div className="relative rounded w-full max-w-md">
+        <h3 className="">Discover ways to screen and increase tenancy</h3>
+        <div className="relative rounded w-4/5 lg:max-w-md mx-auto">
           <input
             type="text"
             placeholder="Enter your email address"

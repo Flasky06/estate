@@ -11,9 +11,8 @@ function PopularListings() {
         Popular Listings
       </h3>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-2 lg:grid-cols-4 lg:gap-4 px-1 lg:px-1">
         <Link to="/property-details">
-          {" "}
           <div className="card cursor-pointer border border-gray-300 shadow rounded-lg overflow-hidden">
             <img
               src={apartment}
@@ -40,10 +39,11 @@ function PopularListings() {
           </div>
         </Link>
       </div>
-
-      <button className="mt-8 mx-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-        <Link to="/listings">Browse More Properties</Link>
-      </button>
+      <div className="flex justify-center mt-16">
+        <button className=" bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+          <Link to="/listings">Browse More Properties</Link>
+        </button>
+      </div>
     </div>
   );
 }

@@ -51,7 +51,7 @@ const SearchComponent = () => {
   };
 
   return (
-    <div className=" bg-white shadow-md rounded lg:px-8 lg:pt-6 lg:pb-8 lg:mb-4 flex lg:max-w-3xl mx-auto text-sm ">
+    <div className=" bg-white shadow-md rounded lg:px-8 lg:pt-6 lg:pb-8 lg:mb-4 flex flex-col lg:flex-row w-full px-3 py-2  lg:max-w-3xl lg:mx-auto text-sm ">
       <div className="flex flex-col lg:flex-row">
         <div className="mb-4 md:mr-2 md:mb-0">
           <label
