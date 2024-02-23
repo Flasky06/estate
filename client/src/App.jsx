@@ -6,7 +6,6 @@ import Profile from "./pages/Profile";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
-import ImageUpload from "./pages/ImageUpload";
 import ConditionalyShowNavbar from "./components/ConditionalyShowNavbar";
 import UpdateListing from "./pages/UpdateListing";
 import MyListings from "./pages/MyListings";
@@ -17,6 +16,7 @@ import PropertyDetails from "./pages/property-details/PropertyDetails";
 function App() {
   return (
     <BrowserRouter>
+      {/* conditionally render Header component */}
       <ConditionalyShowNavbar>
         <Header />
       </ConditionalyShowNavbar>
@@ -25,7 +25,6 @@ function App() {
         <Route path="/listings" element={<ListingsPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-        <Route path="/upload" element={<ImageUpload />} />
         <Route path="/update-listing" element={<UpdateListing />} />
         <Route path="/my-listings" element={<MyListings />} />
         <Route path="/property-details" element={<PropertyDetails />} />
