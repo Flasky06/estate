@@ -3,10 +3,11 @@ import { GrFormNext } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
 import home from "../../assets/images/apartment.jpg";
 import living from "../../assets/images/apartment-exterior.jpg";
+import { FaShower } from "react-icons/fa";
+import { IoBedOutline } from "react-icons/io5";
+import { MdCall, MdEmail } from "react-icons/md";
 
 import { Link } from "react-router-dom";
-
-const images = [home, living, home, living, home, living, home];
 
 const PropertyDetails = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -30,11 +31,13 @@ const PropertyDetails = () => {
   };
 
   return (
-    <div className="flex flex-col w-full lg:max-w-4xl lg:m-auto ">
-      <Link to="/" className="text-black font-bold  p-5">
+    <div className="flex flex-col w-full lg:max-w-5xl mx-auto pb-20">
+      <Link to="../" className="text-black font-bold text-lg lg:p-2 m-4">
         Back
       </Link>
-
+      <h1 className="lg:text-3xl text-2xl font-bold text-slate-800 mx-1 lg:mx-0">
+        Two Bedroom Apartment
+      </h1>
       <div className="relative w-full h-[20rem] lg:h-[24rem] mt-5">
         <img
           src={images[activeIndex]}
@@ -55,41 +58,105 @@ const PropertyDetails = () => {
         </button>
       </div>
       <div
-        className="flex justify-center gap-2
-       mt-4"
+        className="flex justify-center lg:justify-start gap-1 lg:gap-2
+       mt-1 lg:mt-4"
       >
         {images.map((image, index) => (
           <img
             key={index}
             src={image}
             alt={`Thumbnail ${index}`}
-            className={`w-10 h-10 lg:w-20 lg:h-20 cursor-pointer ${
+            className={`w-10 h-10 lg:w-24 lg:h-24 cursor-pointer ${
               index === activeIndex ? "ring-2 ring-blue-500" : ""
             }`}
             onClick={() => setActiveIndex(index)}
           />
         ))}
       </div>
-      <div className="mt-10 flex flex-col px-2 lg:px-0">
-        <h3 className="text-3xl font-bold text-slate-800">
-          Property Description
-        </h3>
-        <p className="text-sm font-light">
-          Lorem ipsum dolor sit amet, wisi nemore fastidii at vis, eos equidem
-          admodum disputando ea. An duis dolor appellantur mea, est id zril
-          nobis appellantur. Ei sea duis senserit qualisque, te facilisis
-          appellantur pri. Id aperiri aliquam interesset mel.
-        </p>
-      </div>
+      <div className="flex flex-col lg:flex-row lg:mt-10 mt-4  lg:mx-0  lg:px-0  gap-8 ">
+        <div className="lg:w-3/5 w-full ">
+          <div className="flex gap-4 p-4 mx-1 lg:mx-0 lg:border lg:border-slate-200 bg-slate-100 ">
+            <div className="flex flex-col gap-2">
+              <div className="font-bold">Bedrooms</div>
+              <div className="flex items-center font-bold ">
+                1 &nbsp;
+                <IoBedOutline className="text-xl text-slate-800" />
+              </div>
+            </div>
 
-      <div className="px-2 lg:px-0 mt-5">
-        <h3 className="text-3xl font-bold text-slate-800">Propery Amenities</h3>
+            <div className="flex flex-col gap-2">
+              <div className="font-bold">Bathrooms</div>
+              <div className="flex items-center font-bold">
+                1 &nbsp;
+                <FaShower className="text-xl text-slate-800" />
+              </div>
+            </div>
+          </div>
 
-        <div className="flex flex-col  lg:max-w-4xl lg:mx-auto">
-          <p className="text-sm">Free wifi</p>
-          <p className="text-sm">Manned gate</p>
-          <p className="text-sm">Rooftop</p>
-          <p className="text-sm">Spacious Balcony</p>
+          <h3 className=" text-slate-800 mt-10 mx-4 lg:mx-0 text-xl font-bold">
+            About this house
+          </h3>
+          <div className="mt-10 flex flex-col px-2 lg:px-0">
+            <ul className="flex flex-col list-disc	gap-1 lg:gap-0">
+              <li>One bedroom</li>
+              <li>
+                Located along Garden Estate Road near mountain mall in a
+                well-guarded neighborhood.
+              </li>
+            </ul>
+            <h3 className=" text-blue-600  font-bold underline underline-offset-4 mt-5">
+              Amenities
+            </h3>
+            <ul className="flex flex-col list-disc	">
+              <li className="">Water 24/7</li>
+              <li className="">Free wifi</li>
+              <li className="">Manned gate</li>
+              <li className="">Spacious Balcony</li>
+            </ul>
+            <h3 className=" text-blue-600  font-bold underline underline-offset-4 mt-5">
+              Fees
+            </h3>
+            <ul className="flex flex-col list-disc	">
+              <li>Rent KES 30,000</li>
+              <li>Deposit KES 30,000</li>
+            </ul>
+          </div>
+        </div>
+        <div className="border border-slate-200 bg-slate-100 lg:w-2/5 w-full px-5  py-4  ">
+          <p className="text-sm text-slate-800 ">Rent Price</p>
+
+          <div className="flex items-center font-light ">
+            <div className="text-blue-600 font-bold text-xl">KES 30,000 </div>
+            &nbsp; /month
+          </div>
+          <h4 className="mt-10 text-slate-800 font-semibold">managed by :</h4>
+          <p className="text-blue-600 font-bold">Ngotho commercial agencies</p>
+
+          <h4 className="mt-10 text-slate-800 font-semibold mb-4">
+            contact info :
+          </h4>
+          <div className="flex items-center gap-4 font-semibold mb-2 ">
+            <div className=" p-2 border rounded-full border-slate-600">
+              <MdCall className="text-lg font-bold text-blue-600" />
+            </div>
+            +254717299106
+          </div>
+
+          <div className="flex items-center gap-4 font-semibold mb-2 ">
+            <div className=" p-2 border rounded-full border-slate-600">
+              <MdCall className="text-lg font-bold text-blue-600" />
+            </div>
+            +254717299106
+          </div>
+          <div className="flex items-center gap-4 font-semibold mb-2">
+            <div className=" p-2 border rounded-full border-slate-600">
+              <MdEmail
+                className="text-lg  text-blue-600
+"
+              />
+            </div>
+            tritva@gmail.com
+          </div>
         </div>
       </div>
     </div>

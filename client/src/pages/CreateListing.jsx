@@ -5,10 +5,7 @@ import { useSelector } from "react-redux";
 function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
 
-  console.log("user", currentUser);
-
   const userId = currentUser._id;
-  console.log("userId", userId);
 
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
@@ -99,7 +96,7 @@ function CreateListing() {
 
       // Append download URLs to formData
       const formDataWithUrls = { ...formData, createdBy: userId, downloadURLs };
-      console.log(formDataWithUrls);
+      console.log("my form", formDataWithUrls);
       const res = await fetch("api/listing/create", {
         method: "POST",
         headers: {
@@ -132,10 +129,10 @@ function CreateListing() {
             <h4 className="text-lg font-semibold text-blue-700 text-md capitalize mb-5">
               Property Description
             </h4>
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-4">
               <label
                 htmlFor="title"
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-700 text-sm font-bold mb-1"
               >
                 Property Name
               </label>
@@ -147,24 +144,24 @@ function CreateListing() {
                 onChange={handleChange}
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-4">
               <label
                 htmlFor="description"
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-700 text-sm font-bold mb-1"
               >
-                Property Description
+                House Description
               </label>
               <textarea
-                id="description"
-                placeholder="Property Description"
+                id="house-description"
+                placeholder="House description"
                 className="w-full p-2 border rounded"
                 onChange={handleChange}
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-4">
               <label
                 htmlFor="price"
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-700 text-sm font-bold mb-1"
               >
                 Price (Ksh)
               </label>
@@ -176,48 +173,22 @@ function CreateListing() {
                 onChange={handleChange}
               />
             </div>
-            <div className="flex w-full flex-col lg:flex-row">
-              <div className="mb-4 w-full">
-                <label
-                  htmlFor="category"
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Property Category
-                </label>
-                <select
-                  id="category"
-                  className="w-full shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  required
-                  onChange={handleChange}
-                >
-                  <option value="">Select Category</option>
-                  <option value="condo">Condo</option>
-                  <option value="apartment">Apartment</option>
-                  <option value="villa">Villa</option>
-                  <option value="house">House</option>
-                </select>
-              </div>
-
-              <div className="mb-4 w-full">
-                <label
-                  htmlFor="listedFor"
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Listed For
-                </label>
-                <select
-                  id="listedFor"
-                  className="w-full shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  required
-                  onChange={handleChange}
-                >
-                  <option value="">Select Listing Type</option>
-                  <option value="sales">Sales</option>
-                  <option value="rent">Rent</option>
-                </select>
-              </div>
+            <div className="flex flex-col mt-4">
+              <label
+                htmlFor="Deposit"
+                className="block text-gray-700 text-sm font-bold mb-1"
+              >
+                Deposit (Ksh)
+              </label>
+              <input
+                type="number"
+                id="deposit"
+                placeholder="Required Deposit"
+                className="w-full p-2 border rounded"
+                onChange={handleChange}
+              />
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-end mt-5 mb-8">
               <button
                 onClick={nextStep}
                 className="bg-blue-700 text-white py-1 px-4 rounded font-semibold cursor-pointer"
@@ -307,6 +278,20 @@ function CreateListing() {
                 onChange={handleChange}
               />
             </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="location-description"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Location Description
+              </label>
+              <textarea
+                id="location-description"
+                placeholder="Location Description"
+                className="w-full p-2 border rounded"
+                onChange={handleChange}
+              />
+            </div>
             <div className="flex justify-between my-2">
               <span
                 type="button"
@@ -330,22 +315,6 @@ function CreateListing() {
             <h4 className="text-semibold text-md capitalize mb-5">
               property details
             </h4>
-            <div className="mb-4">
-              <label
-                htmlFor="rooms"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Rooms (only numbers)
-              </label>
-              <input
-                type="number"
-                id="rooms"
-                name="rooms"
-                className="w-full p-2 border rounded"
-                min="0"
-                onChange={handleChange}
-              />
-            </div>
 
             {/* Bedrooms field */}
             <div className="mb-4">
@@ -386,46 +355,6 @@ function CreateListing() {
               >
                 <option value="">No of Bathrooms</option>
                 {[1, 2, 3, 4, 5].map((num) => (
-                  <option key={num} value={num}>
-                    {num}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Extra Details field */}
-            <div className="mb-4">
-              <label
-                htmlFor="extraDetails"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Extra Details
-              </label>
-              <input
-                type="text"
-                id="extraDetails"
-                name="extraDetails"
-                className="w-full p-2 border rounded"
-                onChange={handleChange}
-              />
-            </div>
-
-            {/* Floors No field */}
-            <div className="mb-4">
-              <label
-                htmlFor="floor No"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Floors No
-              </label>
-              <select
-                id="floorNo"
-                name="floorNo"
-                className="w-full p-2 border rounded"
-                onChange={handleChange}
-              >
-                <option value="">Select Floor Number</option>
-                {[1, 2, 3, 4, 5, 6, 7].map((num) => (
                   <option key={num} value={num}>
                     {num}
                   </option>

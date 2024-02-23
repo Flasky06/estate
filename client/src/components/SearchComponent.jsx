@@ -20,7 +20,13 @@ const SearchComponent = () => {
             <option value=""> Desired Location</option>
             <option value="Freehold">Freehold</option>
             <option value="RaceCourse">RaceCourse</option>
-            <option value="Zakayos">Zakayos</option>
+            <option value="London">London</option>
+            <option value="Mawanga">Mawanga</option>
+            <option value="Whitehouse">White house</option>
+            <option value="Kiamunyi">Kiamunyi</option>
+            <option value="Shaabab">Shaabab</option>
+            <option value="Naka">Naka</option>
+            <option value="Freearea">Free Area</option>
           </>
         );
       case "Nairobi":
@@ -94,7 +100,7 @@ const SearchComponent = () => {
             className="block mb-2 text-sm font-bold text-gray-700"
             htmlFor="priceRange"
           >
-            Price Range
+            Price Range (KES)
           </label>
           <select
             id="priceRange"
@@ -102,13 +108,13 @@ const SearchComponent = () => {
             value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
           >
-            <option value="">Price Range</option>
-            <option value="below 10,000">Below 10,000 KES</option>
-            <option value="below 20,000">Below 20,000 KES</option>
-            <option value="below 30,000">Below 30,000 KES</option>
-            <option value="below 40,000">Below 40,000 KES</option>
-            <option value="below 50,000">Below 50,000 KES</option>
-            <option value="below 60,000">Below 60,000 KES</option>
+            <option value="">Price Range(KES)</option>
+            <option value="below 10,000">Below 10,000 </option>
+            <option value="below 20,000">Below 20,000 </option>
+            <option value="below 30,000">Below 30,000 </option>
+            <option value="below 40,000">Below 40,000 </option>
+            <option value="below 50,000">Below 50,000 </option>
+            <option value="below 60,000">Below 60,000 </option>
           </select>
         </div>
         <div className="mb-4 md:mr-2 md:mb-0">
@@ -116,7 +122,7 @@ const SearchComponent = () => {
             className="block mb-2 text-sm font-bold text-gray-700"
             htmlFor="bedrooms"
           >
-            Bedrooms
+            No of Bedrooms
           </label>
           <select
             id="bedrooms"
