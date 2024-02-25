@@ -1,24 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { GrFormNext } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
-import home from "../../assets/images/apartment.jpg";
-import living from "../../assets/images/apartment-exterior.jpg";
 import { FaShower } from "react-icons/fa";
 import { IoBedOutline } from "react-icons/io5";
 import { MdCall, MdEmail } from "react-icons/md";
-
-import { Link } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 
 const PropertyDetails = () => {
+  const { id } = useParams();
+  const history = useHistory();
+
   const [activeIndex, setActiveIndex] = useState(0);
+  const [listingData, setListingData] = useState([]);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 10000);
+    const fetchListing = async () => {
+      try {
+        const res = await fetch(`/api/listings/${id}`);
+        if (!res.ok) {
+          throw new Error("Failed to fetch listing");
+        }
+        const data = await res.json();
+        setListingData(data);
+        setImages(data.downloadURLs);
+      } catch (error) {
+        console.error("Error fetching listing:", error);
+      }
+    };
 
-    return () => clearInterval(interval);
-  }, []);
+    fetchListing();
+  }, [id]);
 
   const nextSlide = () => {
     setActiveIndex((current) => (current + 1) % images.length);
@@ -31,19 +43,24 @@ const PropertyDetails = () => {
   };
 
   return (
-    <div className="flex flex-col w-full lg:max-w-5xl mx-auto pb-20">
-      <Link to="../" className="text-black font-bold text-lg lg:p-2 m-4">
+    <div className="flex flex-col w-full lg:max-w-5xl mx-auto pb-20 mt-20">
+      {/* update to use usehistory */}
+      <button
+        onClick={() => history.goBack()}
+        className="text-black font-bold text-lg lg:p-2 m-4"
+      >
         Back
-      </Link>
+      </button>
       <h1 className="lg:text-3xl text-2xl font-bold text-slate-800 mx-1 lg:mx-0">
-        Two Bedroom Apartment
+        {listingData.title}{" "}
       </h1>
       <div className="relative w-full h-[20rem] lg:h-[24rem] mt-5">
         <img
-          src={images[activeIndex]}
+          src={images.length > 0 ? images[activeIndex] : ""}
           alt={`Slide ${activeIndex}`}
           className=" w-full h-full  "
         />
+
         <button
           onClick={prevSlide}
           className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-white"
@@ -59,7 +76,7 @@ const PropertyDetails = () => {
       </div>
       <div
         className="flex justify-center lg:justify-start gap-1 lg:gap-2
-       mt-1 lg:mt-4"
+         mt-1 lg:mt-4"
       >
         {images.map((image, index) => (
           <img
@@ -79,7 +96,7 @@ const PropertyDetails = () => {
             <div className="flex flex-col gap-2">
               <div className="font-bold">Bedrooms</div>
               <div className="flex items-center font-bold ">
-                1 &nbsp;
+                {listingData.bedrooms} &nbsp;
                 <IoBedOutline className="text-xl text-slate-800" />
               </div>
             </div>
@@ -87,7 +104,7 @@ const PropertyDetails = () => {
             <div className="flex flex-col gap-2">
               <div className="font-bold">Bathrooms</div>
               <div className="flex items-center font-bold">
-                1 &nbsp;
+                {listingData.bathrooms}&nbsp;
                 <FaShower className="text-xl text-slate-800" />
               </div>
             </div>
@@ -98,11 +115,8 @@ const PropertyDetails = () => {
           </h3>
           <div className="mt-10 flex flex-col px-2 lg:px-0">
             <ul className="flex flex-col list-disc	gap-1 lg:gap-0">
-              <li>One bedroom</li>
-              <li>
-                Located along Garden Estate Road near mountain mall in a
-                well-guarded neighborhood.
-              </li>
+              <li>{listingData.houseDescription}</li>
+              <li>{listingData.locationDescription}</li>
             </ul>
             <h3 className=" text-blue-600  font-bold underline underline-offset-4 mt-5">
               Amenities
@@ -117,8 +131,8 @@ const PropertyDetails = () => {
               Fees
             </h3>
             <ul className="flex flex-col list-disc	">
-              <li>Rent KES 30,000</li>
-              <li>Deposit KES 30,000</li>
+              <li>KES {listingData.price}</li>
+              <li>KES {listingData.deposit}</li>
             </ul>
           </div>
         </div>
@@ -126,7 +140,9 @@ const PropertyDetails = () => {
           <p className="text-sm text-slate-800 ">Rent Price</p>
 
           <div className="flex items-center font-light ">
-            <div className="text-blue-600 font-bold text-xl">KES 30,000 </div>
+            <div className="text-blue-600 font-bold text-xl">
+              KES {listingData.price}
+            </div>
             &nbsp; /month
           </div>
           <h4 className="mt-10 text-slate-800 font-semibold">managed by :</h4>
@@ -152,7 +168,7 @@ const PropertyDetails = () => {
             <div className=" p-2 border rounded-full border-slate-600">
               <MdEmail
                 className="text-lg  text-blue-600
-"
+  "
               />
             </div>
             tritva@gmail.com

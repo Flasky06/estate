@@ -27,7 +27,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/update-listing" element={<UpdateListing />} />
         <Route path="/my-listings" element={<MyListings />} />
-        <Route path="/property-details" element={<PropertyDetails />} />
+        <Route path="/property-details/:id" element={<PropertyDetails />} />
         <Route path="/create-listing" element={<CreateListing />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />

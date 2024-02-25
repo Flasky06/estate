@@ -11,18 +11,17 @@ const listingSchema = new Schema(
     },
     title: {
       type: String,
+      required: true,
     },
-    category: { type: String }, //villa ,apartment, house , bungalow,studio
-    city: { type: String },
-    area: { type: String },
-    type: { type: String }, //sale or rent
-    price: { type: Number },
-    bathrooms: { type: Number },
-    bedrooms: { type: Number },
-    rooms: { type: Number },
-    description: { type: String },
-    extraDetails: { type: String },
-    downloadURLs: { type: [String] },
+    city: { type: String, required: true },
+    area: { type: String, required: true },
+    price: { type: Number, required: true },
+    deposit: { type: Number, required: true },
+    bathrooms: { type: Number, required: true },
+    bedrooms: { type: Number, required: true },
+    houseDescription: { type: String, required: true },
+    locationDescription: { type: String, required: true },
+    downloadURLs: { type: [String], required: true },
   },
   { timestamps: true }
 );

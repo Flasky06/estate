@@ -1,16 +1,13 @@
 import React from "react";
 import Hero from "./Hero";
-import FeaturedListings from "./FeaturedListings";
-import PolpularListings from "./PolpularListings";
 import Footer from "../../components/Footer";
-import SearchComponent from "../../components/SearchComponent";
+import PropertyListings from "./PropertyListings";
 
 function Home() {
   return (
     <div className="bg-white">
       <Hero />
-      <FeaturedListings />
-      <PolpularListings />
+      <PropertyListings />
       <Footer />
     </div>
   );

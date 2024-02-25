@@ -9,16 +9,14 @@ export const createListing = async (req, res) => {
     const {
       createdBy,
       title,
-      description,
       city,
       area,
-      type,
-      rooms,
-      category,
+      locationDescription,
       price,
+      deposit,
       bathrooms,
       bedrooms,
-      extraDetails,
+      houseDescription,
       downloadURLs,
     } = req.body;
 
@@ -33,16 +31,14 @@ export const createListing = async (req, res) => {
     const newListing = new Listing({
       createdBy,
       title,
-      description,
       city,
       area,
-      type,
-      rooms,
-      category,
+      locationDescription,
       price,
+      deposit,
       bathrooms,
       bedrooms,
-      extraDetails,
+      houseDescription,
       downloadURLs,
     });
 

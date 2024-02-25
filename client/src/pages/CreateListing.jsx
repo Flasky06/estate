@@ -97,7 +97,7 @@ function CreateListing() {
       // Append download URLs to formData
       const formDataWithUrls = { ...formData, createdBy: userId, downloadURLs };
       console.log("my form", formDataWithUrls);
-      const res = await fetch("api/listing/create", {
+      const res = await fetch("api/listings/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,12 +109,14 @@ function CreateListing() {
 
       if (!data.success) {
         setError(true);
+        setLoading(false);
       }
       setLoading(false);
       setUpdateSuccess(true);
       alert("Success");
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -152,7 +154,7 @@ function CreateListing() {
                 House Description
               </label>
               <textarea
-                id="house-description"
+                id="houseDescription"
                 placeholder="House description"
                 className="w-full p-2 border rounded"
                 onChange={handleChange}
@@ -286,7 +288,7 @@ function CreateListing() {
                 Location Description
               </label>
               <textarea
-                id="location-description"
+                id="locationDescription"
                 placeholder="Location Description"
                 className="w-full p-2 border rounded"
                 onChange={handleChange}
