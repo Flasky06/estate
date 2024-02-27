@@ -50,41 +50,43 @@ const PropertyDetails = () => {
       <h1 className="lg:text-3xl text-2xl font-bold text-slate-800 mx-1 lg:mx-0">
         {listingData.title}{" "}
       </h1>
-      <div className="relative w-full h-[20rem] lg:h-[24rem] mt-5">
-        <img
-          src={images.length > 0 ? images[activeIndex] : ""}
-          alt={`Slide ${activeIndex}`}
-          className=" w-full h-full  "
-        />
-
-        <button
-          onClick={prevSlide}
-          className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-white"
-        >
-          <GrFormPrevious className="text-slate-800 text-3xl" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-white"
-        >
-          <GrFormNext className="text-slate-800 text-3xl" />
-        </button>
-      </div>
-      <div
-        className="flex justify-center lg:justify-start gap-1 lg:gap-2
-         mt-1 lg:mt-4"
-      >
-        {images.map((image, index) => (
+      <div className="flex flex-col w-full lg:flex-row lg:gap-2">
+        <div className="relative w-full lg:max-w-3xl h-[20rem] lg:h-[24rem] mt-5">
           <img
-            key={index}
-            src={image}
-            alt={`Thumbnail ${index}`}
-            className={`w-10 h-10 lg:w-24 lg:h-24 cursor-pointer ${
-              index === activeIndex ? "ring-2 ring-blue-500" : ""
-            }`}
-            onClick={() => setActiveIndex(index)}
+            src={images.length > 0 ? images[activeIndex] : ""}
+            alt={`Slide ${activeIndex}`}
+            className=" w-full h-full"
           />
-        ))}
+
+          <button
+            onClick={prevSlide}
+            className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-white"
+          >
+            <GrFormPrevious className="text-slate-800 text-3xl" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-white"
+          >
+            <GrFormNext className="text-slate-800 text-3xl" />
+          </button>
+        </div>
+        <div
+          className="flex  h-full  gap-1 lg:grid lg:grid-cols-2
+         mt-1 lg:mt-4"
+        >
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Thumbnail ${index}`}
+              className={`w-10 h-10 lg:w-36 lg:h-32 cursor-pointer ${
+                index === activeIndex ? "ring-2 ring-blue-500" : ""
+              }`}
+              onClick={() => setActiveIndex(index)}
+            />
+          ))}
+        </div>
       </div>
       <div className="flex flex-col lg:flex-row lg:mt-10 mt-4  lg:mx-0  lg:px-0  gap-8 ">
         <div className="lg:w-3/5 w-full ">
