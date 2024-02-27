@@ -3,8 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import ListingCard from "../../components/ListingCard";
 
 function PropertyListings() {
-  const params = useParams();
-
   const [listingData, setListingData] = useState([]);
 
   useEffect(() => {
@@ -16,14 +14,13 @@ function PropertyListings() {
         }
         const data = await response.json();
         setListingData(data); // Update state with fetched data
-        console.log(data);
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
       }
     }
 
     fetchData();
-  }, []); // Empty dependency array to run effect only once
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto my-10 pt-10">

@@ -4,11 +4,10 @@ import { GrFormPrevious } from "react-icons/gr";
 import { FaShower } from "react-icons/fa";
 import { IoBedOutline } from "react-icons/io5";
 import { MdCall, MdEmail } from "react-icons/md";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const PropertyDetails = () => {
   const { id } = useParams();
-  const history = useHistory();
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [listingData, setListingData] = useState([]);
@@ -45,12 +44,9 @@ const PropertyDetails = () => {
   return (
     <div className="flex flex-col w-full lg:max-w-5xl mx-auto pb-20 mt-20">
       {/* update to use usehistory */}
-      <button
-        onClick={() => history.goBack()}
-        className="text-black font-bold text-lg lg:p-2 m-4"
-      >
-        Back
-      </button>
+      <div className="text-black font-bold text-lg lg:p-2 m-4">
+        <Link to="../">Go Back</Link>
+      </div>
       <h1 className="lg:text-3xl text-2xl font-bold text-slate-800 mx-1 lg:mx-0">
         {listingData.title}{" "}
       </h1>

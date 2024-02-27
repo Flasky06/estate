@@ -18,7 +18,7 @@ import {
   signout,
 } from "../redux/user/userSlice";
 
-function Profile() {
+function AgentsProfile() {
   const dispatch = useDispatch();
   const fileRef = useRef(null);
   const [image, setImage] = useState(undefined);
@@ -124,7 +124,6 @@ function Profile() {
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])}
         />
-
         <img
           src={formData.profilePicture || currentUser.profilePicture}
           alt="profile"
@@ -144,12 +143,35 @@ function Profile() {
             ""
           )}
         </p>
-
         <input
           defaultValue={currentUser.username}
           type="text"
           id="username"
-          placeholder="Username"
+          placeholder="company name"
+          className="bg-slate-100 rounded-lg p-3"
+          onChange={handleChange}
+        />{" "}
+        <input
+          defaultValue={currentUser.username}
+          type="text"
+          id="username"
+          placeholder="Phone No"
+          className="bg-slate-100 rounded-lg p-3"
+          onChange={handleChange}
+        />
+        <input
+          defaultValue={currentUser.username}
+          type="text"
+          id="username"
+          placeholder="Phone No"
+          className="bg-slate-100 rounded-lg p-3"
+          onChange={handleChange}
+        />
+        <input
+          defaultValue={currentUser.username}
+          type="text"
+          id="username"
+          placeholder="company email adress"
           className="bg-slate-100 rounded-lg p-3"
           onChange={handleChange}
         />
@@ -191,4 +213,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default AgentsProfile;

@@ -17,7 +17,7 @@ function Footer() {
         <h1 className="text-2xl lg:text-5xl font-bold text-center">
           Are you a landlord or a property agent?
         </h1>
-        <h3 className="">Discover ways to screen and increase tenancy</h3>
+        <h3 className="">Discover ways to increase tenancy</h3>
         <div className="relative rounded w-4/5 lg:max-w-md mx-auto">
           <input
             type="text"
