@@ -42,20 +42,20 @@ const PropertyDetails = () => {
   };
 
   return (
-    <div className="flex flex-col w-full lg:max-w-5xl mx-auto pb-20 mt-20">
+    <div className="flex flex-col w-full lg:max-w-6xl mx-auto pb-20 mt-20">
       {/* update to use usehistory */}
       <div className="text-black font-bold text-lg lg:p-2 m-4">
         <Link to="../">Go Back</Link>
       </div>
       <h1 className="lg:text-3xl text-2xl font-bold text-slate-800 mx-1 lg:mx-0">
-        {listingData.title}{" "}
+        {listingData.title}
       </h1>
       <div className="flex flex-col w-full lg:flex-row lg:gap-2">
         <div className="relative w-full lg:max-w-3xl h-[20rem] lg:h-[24rem] mt-5">
           <img
             src={images.length > 0 ? images[activeIndex] : ""}
             alt={`Slide ${activeIndex}`}
-            className=" w-full h-full"
+            className=" w-full h-full object-fill	"
           />
 
           <button
@@ -80,7 +80,7 @@ const PropertyDetails = () => {
               key={index}
               src={image}
               alt={`Thumbnail ${index}`}
-              className={`w-10 h-10 lg:w-36 lg:h-32 cursor-pointer ${
+              className={`w-10 h-10 lg:w-44 lg:h-32 cursor-pointer object-fill	 ${
                 index === activeIndex ? "ring-2 ring-blue-500" : ""
               }`}
               onClick={() => setActiveIndex(index)}
