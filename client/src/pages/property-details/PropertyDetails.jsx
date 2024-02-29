@@ -55,7 +55,7 @@ const PropertyDetails = () => {
           <img
             src={images.length > 0 ? images[activeIndex] : ""}
             alt={`Slide ${activeIndex}`}
-            className=" w-full h-full object-fill	"
+            className=" w-full h-full object-cover	"
           />
 
           <button
@@ -80,7 +80,7 @@ const PropertyDetails = () => {
               key={index}
               src={image}
               alt={`Thumbnail ${index}`}
-              className={`w-10 h-10 lg:w-44 lg:h-32 cursor-pointer object-fill	 ${
+              className={`w-10 h-10 lg:w-44 lg:h-32 cursor-pointer object-cover		 ${
                 index === activeIndex ? "ring-2 ring-blue-500" : ""
               }`}
               onClick={() => setActiveIndex(index)}

@@ -20,8 +20,8 @@ function Header() {
               <Link to="/about">Properties</Link>
             </li>
             {currentUser ? (
-              <li className="font-semibold">
-                <Link to="/my-listings">Listings</Link>
+              <li className="font-semibold hover:text-slate-600 px-2 py-1">
+                <Link to="/my-listings">Our Listings</Link>
               </li>
             ) : (
               ""

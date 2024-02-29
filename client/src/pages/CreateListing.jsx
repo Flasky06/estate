@@ -5,7 +5,11 @@ import { useSelector } from "react-redux";
 function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
 
+  console.log(currentUser);
+
   const userId = currentUser._id;
+  const username = currentUser.username;
+  const email = currentUser.email;
 
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({});
@@ -95,7 +99,11 @@ function CreateListing() {
       setLoading(true);
 
       // Append download URLs to formData
-      const formDataWithUrls = { ...formData, createdBy: userId, downloadURLs };
+      const formDataWithUrls = {
+        ...formData,
+        userId,
+        downloadURLs,
+      };
       console.log("my form", formDataWithUrls);
       const res = await fetch("api/listings/create", {
         method: "POST",

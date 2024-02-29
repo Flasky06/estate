@@ -4,10 +4,19 @@ const { Schema } = mongoose;
 
 const listingSchema = new Schema(
   {
-    createdBy: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+    userId: {
+      type: String,
       required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
     },
     title: {
       type: String,

@@ -7,7 +7,7 @@ import { errorHandler } from "../utils/error.js";
 export const createListing = async (req, res) => {
   try {
     const {
-      createdBy,
+      userId,
       title,
       city,
       area,
@@ -21,7 +21,8 @@ export const createListing = async (req, res) => {
     } = req.body;
 
     // Check if the createdBy user exists
-    const user = await User.findById(createdBy);
+    const user = await User.findById(userId);
+
     if (!user) {
       return res
         .status(404)
@@ -29,7 +30,9 @@ export const createListing = async (req, res) => {
     }
 
     const newListing = new Listing({
-      createdBy,
+      userId,
+      username: user.username,
+      email: user.email,
       title,
       city,
       area,
@@ -99,22 +102,15 @@ export const fetchAllListings = async (req, res, next) => {
 export const fetchAgentsListings = async (req, res, next) => {
   try {
     const { userId } = req.params;
-
-    console.log("userId:", userId);
-
-    const agentListings = await Listing.find({ createdBy: userId });
-
-    console.log("agentListings:", agentListings);
-
-    if (!agentListings) {
-      return res
-        .status(404)
-        .json({ message: "No listings found for this user." });
-    }
-
-    res.status(200).json(agentListings);
-  } catch (error) {
-    console.error("Error:", error);
-    next(error);
-  }
+    // Find all listings created by the user
+    Listing.find({ userId })
+      .then((listings) => {
+        res.status(200).json(listings);
+        console.log("Listings created by the user:", listings);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error("Error finding listings:", error);
+      });
+  } catch (error) {}
 };
