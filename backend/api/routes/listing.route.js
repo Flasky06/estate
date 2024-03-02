@@ -14,6 +14,6 @@ router.get("/agent-listings/:id", fetchAgentsListings); // Define this route fir
 router.post("/create", verifyToken, createListing);
 router.put("/update/:userId", verifyToken, updateListing);
 router.get("/all-listings", fetchAllListings);
-// router.get("/:id", fetchListing);
+router.get("/:id", fetchListing);
 
 export default router;

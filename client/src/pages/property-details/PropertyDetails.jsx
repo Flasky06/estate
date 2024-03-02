@@ -21,6 +21,7 @@ const PropertyDetails = () => {
           throw new Error("Failed to fetch listing");
         }
         const data = await res.json();
+        console.log(data);
         setListingData(data);
         setImages(data.downloadURLs);
       } catch (error) {

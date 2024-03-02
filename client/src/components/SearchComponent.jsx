@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { LocationData } from "../../data/locations";
 
 const SearchComponent = () => {
   const [city, setCity] = useState("");
   const [area, setArea] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [bedrooms, setBedrooms] = useState("");
+
+  console.log(LocationData);
 
   const handleCityChange = (e) => {
     setCity(e.target.value);

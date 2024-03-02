@@ -32,7 +32,6 @@ export const createListing = async (req, res) => {
     const newListing = new Listing({
       userId,
       username: user.username,
-      email: user.email,
       title,
       city,
       area,

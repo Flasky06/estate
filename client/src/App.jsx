@@ -7,12 +7,12 @@ import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
 import ConditionalyShowNavbar from "./components/ConditionalyShowNavbar";
 import UpdateListing from "./pages/UpdateListing";
-import MyListings from "./pages/MyListings";
 import Home from "./pages/Home/Home";
 import ListingsPage from "./pages/ListingsPage";
 import PropertyDetails from "./pages/property-details/PropertyDetails";
 import AgentsProfile from "./pages/AgentsProfile";
 import Profile from "./pages/profile/Profile";
+import OurListings from "./pages/Our-listings/OurListings";
 
 function App() {
   return (
@@ -27,12 +27,12 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/update-listing" element={<UpdateListing />} />
-        <Route path="/my-listings" element={<MyListings />} />
         <Route path="/property-details/:id" element={<PropertyDetails />} />
         <Route path="/create-listing" element={<CreateListing />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/agent-profile" element={<AgentsProfile />} />
+          <Route path="/our-listings" element={<OurListings />} />
         </Route>
       </Routes>
     </BrowserRouter>
