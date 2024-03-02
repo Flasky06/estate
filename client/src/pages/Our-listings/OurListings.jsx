@@ -14,13 +14,13 @@ function OurListings() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`api/listings/agent-listings/${userId}`);
+        const response = await fetch(`api/listings/${userId}/listings`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
         setListings(data); // Update state with fetched data
-        console.log(listings);
+        console.log(data);
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
       }
@@ -31,7 +31,7 @@ function OurListings() {
 
   return (
     <div>
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-4 lg:gap-8 px-1 lg:px-1">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-4 lg:gap-8 px-1 lg:px-1 mt-32 max-w-7xl mx-auto">
         {listings.map((data) => (
           <Link key={data._id} to={`/property-details/${data._id}`}>
             <ListingCard

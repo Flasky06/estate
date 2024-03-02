@@ -51,9 +51,9 @@ function AgentsProfile() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
-          setFormData({ ...formData, profilePicture: downloadURL })
+          setFormData({ ...formData, profilePicture: downloadURL }),
         );
-      }
+      },
     );
   };
   const handleChange = (e) => {

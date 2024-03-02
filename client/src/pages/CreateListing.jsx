@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
 import { useSelector } from "react-redux";
+import { LocationData } from "../../data/locations";
 
 function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
-
-  console.log(currentUser);
 
   const userId = currentUser._id;
   const username = currentUser.username;
@@ -16,6 +15,8 @@ function CreateListing() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [city, setCity] = useState("");
+  const [area, setArea] = useState("");
 
   // firebase image upload
   const [images, setImages] = useState([]);
@@ -92,6 +93,11 @@ function CreateListing() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  const handleCityChange = (e) => {
+    setCity(e.target.value);
+    setArea(""); // Reset area when city changes
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -128,8 +134,22 @@ function CreateListing() {
     }
   };
 
+  const renderAreas = () => {
+    const selectedCity = LocationData.find(
+      (location) => location.city === city
+    );
+    if (selectedCity) {
+      return selectedCity.area.map((areaName, index) => (
+        <option key={index} value={areaName}>
+          {areaName}
+        </option>
+      ));
+    }
+    return null;
+  };
+
   return (
-    <div className="flex flex-col max-w-4xl mx-auto mt-32 px-2 lg:px-0">
+    <div className="flex lg:px-0 flex-col max-w-4xl mx-auto mt-32 px-2 ">
       <h2 className="flex mt-3 capitalize font-bold self-center text-lg">
         Post New Listing
       </h2>
@@ -198,6 +218,7 @@ function CreateListing() {
                 onChange={handleChange}
               />
             </div>
+
             <div className="flex justify-end mt-5 mb-8">
               <button
                 onClick={nextStep}
@@ -256,37 +277,42 @@ function CreateListing() {
           <div className="gap-2">
             <h4 className="text-semibold text-md capitalize mb-5">
               Property location
-            </h4>
-            <div className="flex flex-col ">
+            </h4>{" "}
+            <div className="flex flex-col mt-4 mb-5">
               <label
-                htmlFor=""
-                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="city"
+                className="block text-gray-700 text-sm font-bold mb-1"
               >
                 City
               </label>
-              <input
-                type="text"
+              <select
                 id="city"
-                placeholder="city"
                 className="w-full p-2 border rounded"
-                onChange={handleChange}
-              />
+                onChange={handleCityChange}
+              >
+                <option value="">Select City</option>
+                {LocationData.map((location) => (
+                  <option key={location.id} value={location.city}>
+                    {location.city}
+                  </option>
+                ))}
+              </select>
             </div>
-            <div className="flex flex-col mt-5">
+            <div className="flex flex-col mb-5 ">
               <label
-                htmlFor=""
-                id="area"
+                htmlFor="area"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
                 Area
               </label>
-              <input
-                type="text"
+              <select
                 id="area"
-                placeholder="area"
                 className="w-full p-2 border rounded"
                 onChange={handleChange}
-              />
+                value={area}
+              >
+                {renderAreas()}
+              </select>
             </div>
             <div className="flex flex-col">
               <label
@@ -382,9 +408,9 @@ function CreateListing() {
               </span>
               <button
                 disabled={loading}
-                className="bg-blue-700 text-white py-1 p-2 rounded font-semibold cursor-pointer disabled:bg-green-600 "
+                className="bg-blue-700  text-white py-1 p-2 rounded font-semibold cursor-pointer disabled:bg-green-600 "
               >
-                {loading ? "submiting listing" : "Submit"}
+                {loading ? "submitting listing" : "Submit"}
               </button>
             </div>
           </div>

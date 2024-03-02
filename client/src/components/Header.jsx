@@ -8,7 +8,7 @@ function Header() {
   return (
     <div>
       <nav className=" hidden lg:flex  w-full py-4 bg-white fixed z-20 top-0 shadow">
-        <div className="flex  w-full  justify-between items-center max-w-6xl mx-auto p-3 ">
+        <div className="flex  w-full  justify-around items-center max-w-6xl mx-auto p-3 ">
           <Link to="/">
             <h1>Esate App</h1>
           </Link>
@@ -17,11 +17,11 @@ function Header() {
               <Link to="/">Home</Link>
             </li>
             <li className="font-semibold hover:text-slate-600 px-2 py-1">
-              <Link to="/about">Properties</Link>
+              <Link to="/listings">Properties</Link>
             </li>
             {currentUser && currentUser.role === "agent" && (
               <li className="font-semibold hover:text-slate-600 px-2 py-1">
-                <Link to="/our-listings">Saved Listings</Link>
+                <Link to="/our-listings">Saved </Link>
               </li>
             )}
             {currentUser && currentUser.role === "agent" && (

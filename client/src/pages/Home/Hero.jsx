@@ -12,7 +12,9 @@ function Hero() {
           &nbsp; in The <span className="text-blue-700">market</span>
         </h1>
       </div>
-      <SearchComponent />
+      <div className="max-w-3xl mx-auto">
+        <SearchComponent />
+      </div>
     </div>
   );
 }

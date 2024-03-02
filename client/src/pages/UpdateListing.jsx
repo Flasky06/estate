@@ -122,7 +122,7 @@ function UpdateListing() {
   };
 
   return (
-    <div className="flex flex-col max-w-4xl mx-auto mt-32 px-2 lg:px-0">
+    <div className="flex lg:px-0 flex-col max-w-4xl mx-auto mt-32 px-2 ">
       <h2 className="flex mt-3 capitalize font-bold self-center text-lg">
         Update Listing
       </h2>

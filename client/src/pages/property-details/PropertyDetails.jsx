@@ -38,7 +38,7 @@ const PropertyDetails = () => {
 
   const prevSlide = () => {
     setActiveIndex((current) =>
-      current === 0 ? images.length - 1 : current - 1
+      current === 0 ? images.length - 1 : current - 1,
     );
   };
 
