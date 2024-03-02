@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-router.get("/agent-listings/:id", fetchAgentsListings); // Define this route first
+router.get("/:id/listings", fetchAgentsListings);
 router.post("/create", verifyToken, createListing);
 router.put("/update/:userId", verifyToken, updateListing);
 router.get("/all-listings", fetchAllListings);

@@ -30,8 +30,8 @@ export const createListing = async (req, res) => {
     }
 
     const newListing = new Listing({
-      userId,
       username: user.username,
+      userId,
       title,
       city,
       area,
@@ -100,16 +100,17 @@ export const fetchAllListings = async (req, res, next) => {
 // fetch listings posted by agent id
 export const fetchAgentsListings = async (req, res, next) => {
   try {
-    const { userId } = req.params;
-    // Find all listings created by the user
-    Listing.find({ userId })
-      .then((listings) => {
-        res.status(200).json(listings);
-        console.log("Listings created by the user:", listings);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error("Error finding listings:", error);
-      });
-  } catch (error) {}
+    const { id } = req.params;
+    console.log("id", id);
+
+    // Await the execution of the query to retrieve listings by userId
+    const agentsListings = await Listing.find({ userId: id });
+
+    // Respond with the retrieved listings
+    res.status(200).json(agentsListings);
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error("Error fetching agent's listings:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
