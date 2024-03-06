@@ -61,7 +61,6 @@ function Signin() {
           id="password"
           onChange={handleChange}
           className="bg-slate-100 p-3 rounded-lg"
-          on
         />
         <button
           disabled={loading}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
 import { useSelector } from "react-redux";
 import { LocationData } from "../../data/locations";
@@ -93,11 +93,6 @@ function CreateListing() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleCityChange = (e) => {
-    setCity(e.target.value);
-    setArea(""); // Reset area when city changes
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -132,6 +127,14 @@ function CreateListing() {
       console.log(error);
       setLoading(false);
     }
+  };
+  const handleCityChange = (e) => {
+    const selectedCity = e.target.value;
+    setCity(selectedCity);
+    setArea(""); // Reset area when city changes
+
+    // Update formData with the selected city
+    setFormData({ ...formData, city: selectedCity });
   };
 
   const renderAreas = () => {
@@ -289,6 +292,7 @@ function CreateListing() {
                 id="city"
                 className="w-full p-2 border rounded"
                 onChange={handleCityChange}
+                value={city}
               >
                 <option value="">Select City</option>
                 {LocationData.map((location) => (

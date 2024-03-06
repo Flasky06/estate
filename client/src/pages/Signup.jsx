@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 
@@ -66,7 +66,6 @@ function Signup() {
           id="password"
           onChange={handleChange}
           className="bg-slate-100 p-3 rounded-lg"
-          on
         />
         <button
           type="submit"

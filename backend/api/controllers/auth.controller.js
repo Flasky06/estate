@@ -15,7 +15,7 @@ export const Signup = async (req, res, next) => {
 
   try {
     await newUser.save();
-    console.log(newUser);
+    console.log("created", newUser);
 
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
@@ -40,12 +40,14 @@ export const Signin = async (req, res, next) => {
 
     const { password: hashedPassword, ...rest } = validUser._doc;
 
-    const expiryDate = new Date(Date.now() + 3600000);
+    const expiryDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // Calculate expiry date (24 hours from now)
     res
       .cookie("access_token", token, { httpOnly: true, expires: expiryDate })
       .status(200)
       .json(rest);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const Google = async (req, res, next) => {
@@ -83,12 +85,12 @@ export const Google = async (req, res, next) => {
 
       const { password: hashedPassword2, ...rest } = newUser._doc;
 
-      const expiryDate = new Date(Date.now() + 360000); //1 hour
+      const expiryDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // Calculate expiry date (24 hours from now)
 
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          // expires: expiryDate,
+          expires: expiryDate,
         })
         .status(200)
         .json(rest);
