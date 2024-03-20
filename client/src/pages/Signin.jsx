@@ -63,7 +63,7 @@ function Signin() {
           className="bg-slate-100 p-3 rounded-lg"
         />
         <button
-          disabled={loading}
+          // disabled={loading}
           className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
           {loading ? "Signing In..." : "Sign In"}
