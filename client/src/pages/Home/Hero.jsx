@@ -1,4 +1,3 @@
-import HeroImage from "../../assets/images/apartment.jpg";
 import SearchComponent from "../../components/SearchComponent";
 
 function Hero() {
