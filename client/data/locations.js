@@ -10,6 +10,7 @@ export const LocationData = [
       "Rongai",
       "Eastliegh",
       "Embakasi",
+      "Rongai",
     ],
   },
   {
@@ -37,7 +38,7 @@ export const LocationData = [
       "Pembembili",
       "Milimani",
       "Makongeni",
-      "",
+      "Kisiani",
     ],
   },
   {
@@ -51,6 +52,7 @@ export const LocationData = [
       "Muumbuni",
       "Kenya Israel",
       "Miwani",
+      "Mviani",
     ],
   },
 ];
