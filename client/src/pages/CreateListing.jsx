@@ -89,10 +89,6 @@ function CreateListing() {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -128,13 +124,37 @@ function CreateListing() {
       setLoading(false);
     }
   };
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+
+    // Update formData with the changed field
+    setFormData({ ...formData, [id]: value });
+
+    // If the changed field is the city, reset the area selection
+    if (id === "city") {
+      setArea("");
+    }
+  };
+
   const handleCityChange = (e) => {
     const selectedCity = e.target.value;
+
+    // Update the selected city in the state
     setCity(selectedCity);
-    setArea(""); // Reset area when city changes
+
+    // Reset the area selection when city changes
+    setArea("");
 
     // Update formData with the selected city
     setFormData({ ...formData, city: selectedCity });
+  };
+
+  const handleAreaChange = (e) => {
+    // Update the selected area in the state
+    setArea(e.target.value);
+
+    // Update formData with the selected area
+    setFormData({ ...formData, area: e.target.value });
   };
 
   const renderAreas = () => {
@@ -278,6 +298,7 @@ function CreateListing() {
         )}
         {currentStep === 3 && (
           <div className="gap-2">
+            {/* Step 3: Property Location */}
             <h4 className="text-semibold text-md capitalize mb-5">
               Property location
             </h4>{" "}
@@ -288,6 +309,7 @@ function CreateListing() {
               >
                 City
               </label>
+              {/* City select dropdown */}
               <select
                 id="city"
                 className="w-full p-2 border rounded"
@@ -309,10 +331,11 @@ function CreateListing() {
               >
                 Area
               </label>
+              {/* Area select dropdown */}
               <select
                 id="area"
                 className="w-full p-2 border rounded"
-                onChange={handleChange}
+                onChange={handleAreaChange}
                 value={area}
               >
                 {renderAreas()}
@@ -325,6 +348,7 @@ function CreateListing() {
               >
                 Location Description
               </label>
+              {/* Location description textarea */}
               <textarea
                 id="locationDescription"
                 placeholder="Location Description"
@@ -332,6 +356,7 @@ function CreateListing() {
                 onChange={handleChange}
               />
             </div>
+            {/* Prev and Next Step buttons */}
             <div className="flex justify-between my-2">
               <span
                 type="button"
