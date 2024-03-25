@@ -1,24 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import tritva from "../assets/images/tritva.png";
 
 function Header() {
   const { currentUser } = useSelector((state) => state.user);
 
   return (
     <div>
-      <nav className=" hidden lg:flex  w-full py-4 bg-white fixed z-20 top-0 shadow">
-        <div className="flex  w-full  justify-around items-center max-w-6xl mx-auto p-3 ">
-          <Link to="/">
-            <h1>Esate App</h1>
+      <nav className=" hidden lg:flex  w-full  bg-white fixed z-20 top-0 shadow">
+        <div className="flex  w-full justify-between items-center max-w-6xl mx-auto ">
+          <Link to="/" className=" h-24 w-30 ">
+            <img
+              src={tritva}
+              alt="tritva"
+              className="h-full w-full object-fill"
+            />
           </Link>
           <ul className="flex gap-6">
             <li className="font-semibold hover:text-slate-600 px-2 py-1">
               <Link to="/">Home</Link>
             </li>
-            <li className="font-semibold hover:text-slate-600 px-2 py-1">
+            {/* <li className="font-semibold hover:text-slate-600 px-2 py-1">
               <Link to="/listings">Properties</Link>
-            </li>
+            </li> */}
             {currentUser && currentUser.role === "agent" && (
               <li className="font-semibold hover:text-slate-600 px-2 py-1">
                 <Link to="/our-listings">Saved </Link>

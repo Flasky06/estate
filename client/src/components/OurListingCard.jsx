@@ -1,7 +1,15 @@
 import { FaShower } from "react-icons/fa";
 import { IoBedOutline } from "react-icons/io5";
 
-function ListingCard({ cardImage, rent, title, city, area, size, bathroom }) {
+function OurListingCard({
+  cardImage,
+  rent,
+  title,
+  area,
+  city,
+  size,
+  bathroom,
+}) {
   return (
     <div className="card cursor-pointer border border-gray-300 bg-slate-100 shadow rounded-lg overflow-hidden">
       <img
@@ -36,4 +44,4 @@ function ListingCard({ cardImage, rent, title, city, area, size, bathroom }) {
   );
 }
 
-export default ListingCard;
+export default OurListingCard;

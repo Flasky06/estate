@@ -38,15 +38,16 @@ const PropertyDetails = () => {
 
   const prevSlide = () => {
     setActiveIndex((current) =>
-      current === 0 ? images.length - 1 : current - 1,
+      current === 0 ? images.length - 1 : current - 1
     );
   };
 
   return (
     <div className="flex flex-col w-full lg:max-w-6xl mx-auto pb-20 mt-20">
       {/* update to use usehistory */}
-      <div className="text-black font-bold text-lg lg:p-2 m-4">
+      <div className="text-black flex flex-row justify-between font-bold text-lg lg:p-2 m-4">
         <Link to="../">Go Back</Link>
+        <div className="font-bold">edit</div>
       </div>
       <h1 className="lg:text-3xl text-2xl font-bold text-slate-800 mx-1 lg:mx-0">
         {listingData.title}
